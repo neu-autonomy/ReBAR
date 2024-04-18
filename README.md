@@ -63,6 +63,8 @@ python -m model.train.train_potential_field \
     --batch_size 32 --lr 1e-4 --weight_decay 1e-4 --epoch 20
 ```
 
+Some pretrained checkpoints can be found in `model/checkpoints/`.
+
 ### Verification
 
 To verify the trained policies, run the following command. To get the monte carlo sampled RBPUA, pass in the `--RBPUA` flag. To plot the results, pass in the `--plot` flag.
