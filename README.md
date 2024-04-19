@@ -1,4 +1,4 @@
-# ReBAR_MILP: MILP Based Relative Backward Reachability Analysis for Multi-agent Neural Feedback Loops (NFL)
+# ReBAR: Relative Backward Reachability Analysis for Multi-agent Neural Feedback Loops (NFL)
 
 
 <p align="center">
