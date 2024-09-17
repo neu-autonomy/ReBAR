@@ -6,6 +6,10 @@
     <span>Complex interaction between mutliple neural network controlled agents</span>
 </p>
 
+## Updates
+
+* Our paper has been accepted by IEEE Control Systems Letters (L-CSS) and IEEE Conference on Decision and Control (CDC), looking forward to meeting colleagues at Milan this December!
+
 ## About
 
 This is the official implementation of the algorithm **ReBAR** proposed in the paper "[Collision Avoidance Verification of Multi-agent Systems with Learned Policies](https://arxiv.org/abs/2403.03314)".
