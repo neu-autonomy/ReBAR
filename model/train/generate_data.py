@@ -65,6 +65,10 @@ def generate_sample(
             y = y - v
         Y.append(y)
 
+    import os
+    os.makedirs('./data', exist_ok=True)
+
+
     Y_tensor = torch.tensor(Y)
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
