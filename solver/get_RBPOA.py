@@ -65,6 +65,8 @@ def get_RBPOA(
         As.append(A)
         Bs.append(B)
 
+        print(monte_carlo)
+
         if monte_carlo:
 
             Au, Bu = sample_RBPUA(
@@ -77,7 +79,10 @@ def get_RBPOA(
                 num_samples = 50000
             )
 
+            print(Au, Bu)
+
             Aus.append(Au)
             Bus.append(Bu)
+    print(Aus, Bus)
 
     return As, Bs, Aus, Bus, total_runtime / steps

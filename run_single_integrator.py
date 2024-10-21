@@ -97,6 +97,26 @@ if __name__ == '__main__':
         uncertainty = args.state_uncertainty,
         monte_carlo = args.RBPUA
     )
+    
+    # Check that all are np.arrays
+    As = np.array(As)
+    Bs = np.array(Bs)
+    Aus = np.array(Aus)
+    Bus = np.array(Bus)
+
+    # Check which are empty
+    if As.size == 0:
+        print("As is empty.")
+    if Bs.size == 0:
+        print("Bs is empty.")
+    if Aus.size == 0:
+        print("Aus is empty.")
+    if Bus.size == 0:
+        print("Bus is empty.")
+
+    if As.size != 0 and Bs.size != 0 and Aus.size != 0 and Bus.size != 0:
+        print("None of the arrays are empty.")
+
 
     if args.plot:
 
