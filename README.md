@@ -30,6 +30,7 @@ This codebase has been tested compatible with the following environment configur
 * torch `2.1.2`
 * cuda `11.8`
 * gurobipy `10.0.0`
+* pycddlib `2.1.7` (**Important**: pycddlib Version 3.0.0 onward causes [backward incompatibility issue](https://pycddlib.readthedocs.io/en/latest/changes.html) in pypoman source code, so make sure you are not using any of those versions)
 * [pypoman](https://github.com/stephane-caron/pypoman) `1.0.0`
 
 To install `gurobipy`, please refer to this [page](https://support.gurobi.com/hc/en-us/articles/360044290292-How-do-I-install-Gurobi-for-Python), and to obtain a free academic license, please follow instructions [here](https://www.gurobi.com/academia/academic-program-and-licenses/).
