@@ -116,9 +116,10 @@ If you find this work helpful, please consider citing our work:
 
 ```
 @article{dong2024collision,
-  title={Collision Avoidance Verification of Multiagent Systems with Learned Policies},
+  title={Collision Avoidance Verification of Multiagent Systems With Learned Policies},
   author={Dong, Zihao and Omidshafiei, Shayegan and Everett, Michael},
-  journal={arXiv preprint arXiv:2403.03314},
-  year={2024}
+  journal={IEEE Control Systems Letters},
+  year={2024},
+  publisher={IEEE}
 }
 ```
