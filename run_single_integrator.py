@@ -34,7 +34,7 @@ def parse_arguments():
     parser.add_argument('--num_cs', type=int, default=20, help="number of half-planes for backprojection set.")
     parser.add_argument('--steps', type=int, default=1, help="number of backward steps")
     parser.add_argument('--RBPUA', action="store_true", help="whether to sample RBPUA or not")
-    parser.add_argument('--plot', action='store_true', help="whether to plot results or not")
+    parser.add_argument('--plot', type=str, default=None, help="plot static or animated")
 
     args = parser.parse_args()
 
@@ -98,8 +98,9 @@ if __name__ == '__main__':
         monte_carlo = args.RBPUA
     )
 
-    if args.plot:
+    plot_type = args.plot
 
+    if plot_type == 'static':
         # intialize matplotlib figure
         plt.figure(0)
         plt.rcParams.update({'font.size': 50})
@@ -107,12 +108,45 @@ if __name__ == '__main__':
 
         for i in range(len(As)):
             plot_polytope(As[i], Bs[i], 0, axis)
-            plot_polytope(-Aus[i], Bus[i], 0, axis, color='blue')
+            if args.RBPUA:
+                plot_polytope(-Aus[i], Bus[i], 0, axis, color='blue')
         plot_util_sets(r, dist_max+2*(args.steps-1), 0, axis)
 
         plt.xlim(-dist_max-2*(args.steps-1)-1, dist_max+2*(args.steps-1)+1)
         plt.ylim(-dist_max-2*(args.steps-1)-1, dist_max+2*(args.steps-1)+1)
 
+        file_name = f'outputs/{ckpt1.replace("/",".")}_{ckpt2.replace("/",".")}_{args.steps}steps.png'
+        plt.savefig(file_name)
+        plt.show()
+        plt.close()
+
+    elif plot_type == 'animate':
+        import matplotlib.animation as animation
+
+        # intialize matplotlib figure
+        fig, axis = plt.subplots()
+        plt.rcParams.update({'font.size': 50})
+
+        plot_util_sets(r, dist_max + 2 * (args.steps - 1), 0, axis)
+        plt.xlim(-dist_max-2*(args.steps-1)-1, dist_max+2*(args.steps-1)+1)
+        plt.ylim(-dist_max-2*(args.steps-1)-1, dist_max+2*(args.steps-1)+1)
+
+        def animate(i):
+            if i == 0:
+                axis.clear()
+                axis.set_xlim(-dist_max - 2 * (args.steps - 1) - 1, dist_max + 2 * (args.steps - 1) + 1)
+                axis.set_ylim(-dist_max - 2 * (args.steps - 1) - 1, dist_max + 2 * (args.steps - 1) + 1)
+                plot_util_sets(r, dist_max + 2 * (args.steps - 1), 0, axis)
+            else:
+                plot_polytope(As[i - 1], Bs[i - 1], 0, axis)
+                if args.RBPUA:
+                    plot_polytope(-Aus[i - 1], Bus[i - 1], 0, axis, color='blue')
+
+        ani = animation.FuncAnimation(fig, animate, frames=len(As)+1, interval=500, repeat=True)     
+
+        file_name = f'outputs/animation_{ckpt1.replace("/",".")}_{ckpt2.replace("/",".")}_{args.steps}steps.gif'
+
+        ani.save(file_name, writer='pillow', fps=2) # apt install pillow
         plt.show()
 
-        exit(0)
+    exit(0)
