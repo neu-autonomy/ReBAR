@@ -38,7 +38,8 @@ def get_RBPOA(
     agent_2_id = 1,
     steps = 1,
     uncertainty = 0.5,
-    monte_carlo = False
+    monte_carlo = False,
+    initial_state = None
 ):
     As, Bs, Aus, Bus = [], [], [], []
     d_original = d
@@ -48,7 +49,10 @@ def get_RBPOA(
 
     for step in range(steps):
 
-        if step > 0:
+        if step == 0 and initial_state is not None:
+            d = d_original - H @ initial_state
+
+        elif step > 0:
 
             H = torch.tensor(A).float() @ subtraction_matrix
             d = -torch.tensor(B).float()
@@ -65,19 +69,19 @@ def get_RBPOA(
         As.append(A)
         Bs.append(B)
 
-        if monte_carlo:
+        # if monte_carlo:
 
-            Au, Bu = sample_RBPUA(
-                model, H, d,
-                state_space_lbs, state_space_ubs,
-                num_agents,
-                agent_1_id, agent_2_id,
-                dist_max+2*step,
-                uncertainty,
-                num_samples = 50000
-            )
+        #     Au, Bu = sample_RBPUA(
+        #         model, H, d,
+        #         state_space_lbs, state_space_ubs,
+        #         num_agents,
+        #         agent_1_id, agent_2_id,
+        #         dist_max+2*step,
+        #         uncertainty,
+        #         num_samples = 50000
+        #     )
 
-            Aus.append(Au)
-            Bus.append(Bu)
+        #     Aus.append(Au)
+        #     Bus.append(Bu)
 
     return As, Bs, Aus, Bus, total_runtime / steps

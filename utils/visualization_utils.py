@@ -5,7 +5,7 @@ import numpy as np
 from scipy.spatial import ConvexHull
 
 
-def plot_polytope(A, B, figure_number, axis, color='#ff66ff', fill=False, alpha=1, label="BP set Over-Approximation"):
+def plot_polytope(A, B, figure_number, axis, color='#ff66ff', fill=False, alpha=1, label="BP set Over-Approximation", offset=(0,0)):
 
     plt.figure(figure_number)
 
@@ -19,8 +19,13 @@ def plot_polytope(A, B, figure_number, axis, color='#ff66ff', fill=False, alpha=
     else:
         points = -vertices
 
+    offset_vector = np.array(offset)
+    points = points + offset_vector
+
     hull = ConvexHull(points)
     points = points[hull.vertices, :]
+
+
 
     patch = Polygon(
         points,
